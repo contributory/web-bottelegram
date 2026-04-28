@@ -12,9 +12,10 @@ import { cn } from "@/lib/utils";
 
 interface SidebarProps {
   className?: string;
+  onToggle?: (hidden: boolean) => void;
 }
 
-export function Sidebar({ className }: SidebarProps) {
+export function Sidebar({ className, onToggle }: SidebarProps) {
   // Default to hidden on small screens
   const [isHidden, setIsHidden] = useState(() => {
     if (typeof window !== 'undefined') {
@@ -28,6 +29,7 @@ export function Sidebar({ className }: SidebarProps) {
     const handleResize = () => {
       if (window.innerWidth < 768) {
         setIsHidden(true);
+        onToggle?.(true);
       }
     };
 
@@ -72,7 +74,10 @@ export function Sidebar({ className }: SidebarProps) {
           variant="ghost"
           size="icon"
           className="fixed top-4 left-4 z-50 hud-glow border border-border/70 bg-card/80 backdrop-blur-md"
-          onClick={() => setIsHidden(false)}
+          onClick={() => {
+            setIsHidden(false);
+            onToggle?.(false);
+          }}
         >
           <Menu className="h-4 w-4" />
         </Button>
@@ -111,7 +116,10 @@ export function Sidebar({ className }: SidebarProps) {
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => setIsHidden(true)}
+              onClick={() => {
+                setIsHidden(true);
+                onToggle?.(true);
+              }}
               title="Close sidebar"
             >
               <X className="h-4 w-4" />
@@ -152,7 +160,7 @@ export function Sidebar({ className }: SidebarProps) {
         {/* Open Chat Section */}
         <div className="border-b border-border/80 p-3">
           <p className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-primary/85">
-            Jump to channel
+            {t('sidebar.jumpToChannel')}
           </p>
           <div className="flex gap-2">
             <Input
@@ -186,7 +194,10 @@ export function Sidebar({ className }: SidebarProps) {
       {!isHidden && (
         <div
           className="fixed inset-0 bg-background/75 backdrop-blur-sm z-30 md:hidden"
-          onClick={() => setIsHidden(true)}
+          onClick={() => {
+            setIsHidden(true);
+            onToggle?.(true);
+          }}
         />
       )}
     </>

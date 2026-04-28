@@ -34,6 +34,24 @@ export interface Translation {
         about: string;
     };
 
+    // Sidebar
+    sidebar: {
+        jumpToChannel: string;
+        navigation: string;
+        navigationDesc: string;
+        transmissionTips: string;
+        tipEnterSend: string;
+        tipDragDrop: string;
+        tipInlineKeyboard: string;
+        openChat: string;
+        chatIdPlaceholder: string;
+        chatTitlePlaceholder: string;
+        openButton: string;
+        openButtonLoading: string;
+        hintChatIdOrUsername: string;
+        hintBotChat: string;
+    };
+
     // Connection
     connection: {
         connected: string;
@@ -120,6 +138,8 @@ export interface Translation {
         userInfo: string;
         type: string;
         openChat: string;
+        dropFileToSend: string;
+        supportedFileTypes: string;
     };
 
     // Settings
@@ -246,6 +266,25 @@ export const translations: Record<Language, Translation> = {
             chats: "Cuộc trò chuyện",
             settings: "Cài đặt",
             about: "Thông tin",
+        },
+
+        sidebar: {
+            jumpToChannel: "Chuyển đến kênh",
+            navigation: "Điều hướng",
+            navigationDesc: "Dùng panel bên trái để chuyển hội thoại nhanh, hoặc mở chat mới bằng ID/@username.",
+            transmissionTips: "Mẹo sử dụng",
+            tipEnterSend: "Enter để gửi nhanh, Shift+Enter xuống dòng.",
+            tipDragDrop: "Kéo thả file vào khung chat để gửi media.",
+            tipInlineKeyboard: "Có thể sửa/tạo inline keyboard cho tin nhắn.",
+            openChat: "Mở chat mới",
+            chatIdPlaceholder: "Chat ID hoặc @username",
+            chatTitlePlaceholder: "Tiêu đề (tùy chọn)",
+            openButton: "Mở chat",
+            openButtonLoading: "Đang mở...",
+            hintChatIdOrUsername: "Nhập @channel/@group hoặc ID số.",
+            hintBotChat: "Với người dùng, bot chỉ nhắn nếu họ đã start bot.",
+            dropFileToSend: "Thả file vào đây để gửi",
+            supportedFileTypes: "Hỗ trợ tất cả loại file",
         },
 
         connection: {
@@ -457,6 +496,25 @@ export const translations: Record<Language, Translation> = {
             chats: "Chats",
             settings: "Settings",
             about: "About",
+        },
+
+        sidebar: {
+            jumpToChannel: "Jump to channel",
+            navigation: "Navigation",
+            navigationDesc: "Use the left panel to switch conversations quickly, or open a new chat by ID/@username.",
+            transmissionTips: "Transmission tips",
+            tipEnterSend: "Press Enter to send quickly, Shift+Enter for new line.",
+            tipDragDrop: "Drag and drop files into the chat to send media.",
+            tipInlineKeyboard: "You can edit/create inline keyboard for messages.",
+            openChat: "Open new chat",
+            chatIdPlaceholder: "Chat ID or @username",
+            chatTitlePlaceholder: "Title (optional)",
+            openButton: "Open chat",
+            openButtonLoading: "Opening...",
+            hintChatIdOrUsername: "Enter @channel/@group or numeric ID.",
+            hintBotChat: "For users, the bot can only message if they have started the bot.",
+            dropFileToSend: "Drop file here to send",
+            supportedFileTypes: "All file types supported",
         },
 
         connection: {

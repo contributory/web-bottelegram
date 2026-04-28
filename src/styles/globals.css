@@ -54,10 +54,9 @@
   * {
     @apply border-border;
   }
+  
   body {
     @apply bg-background text-foreground;
-  }
-  body {
     background-image:
       radial-gradient(circle at 20% 12%, hsl(var(--primary) / 0.14), transparent 38%),
       radial-gradient(circle at 80% 0%, hsl(var(--accent) / 0.13), transparent 36%),
@@ -73,7 +72,6 @@
   textarea {
     letter-spacing: 0.01em;
   }
-
 }
 
 @layer utilities {
@@ -167,7 +165,7 @@
 }
 
 .hud-panel {
-  @apply border border-border/80 bg-card/60 backdrop-blur-xl shadow-[0_0_0_1px_hsl(var(--primary)/0.18),0_20px_55px_hsl(var(--background)/0.55)];
+  @apply border border-border/80 bg-card/60 backdrop-blur-xl shadow-[0_0_0_1px_hsl(var(--primary)/0.18),0_20px_55px_rgba(0,0,0,0.35)];
 }
 
 .hud-panel::before {

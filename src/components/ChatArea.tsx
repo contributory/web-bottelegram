@@ -261,16 +261,16 @@ export function ChatArea() {
             )}
 
             <div className="mt-6 space-y-2 p-4 border border-border/80 rounded-lg text-left bg-background/45">
-              <p className="text-sm font-medium">Mở chat mới</p>
+              <p className="text-sm font-medium">{t('sidebar.openChat')}</p>
               <div className="flex flex-col sm:flex-row gap-2">
                 <Input
-                  placeholder="Chat ID hoặc @username"
+                  placeholder={t('sidebar.chatIdPlaceholder')}
                   value={openChatInput}
                   onChange={(e) => setOpenChatInput(e.target.value)}
                   disabled={openChatLoading}
                 />
                 <Input
-                  placeholder="Tiêu đề (tùy chọn)"
+                  placeholder={t('sidebar.chatTitlePlaceholder')}
                   value={openChatTitle}
                   onChange={(e) => setOpenChatTitle(e.target.value)}
                   disabled={openChatLoading}
@@ -279,14 +279,14 @@ export function ChatArea() {
                   onClick={handleOpenChat}
                   disabled={openChatLoading || !openChatInput.trim()}
                 >
-                  {openChatLoading ? 'Đang mở...' : 'Mở chat'}
+                  {openChatLoading ? t('sidebar.openButtonLoading') : t('sidebar.openButton')}
                 </Button>
               </div>
               {openChatError && (
                 <p className="text-xs text-destructive">{openChatError}</p>
               )}
               <p className="text-[10px] text-muted-foreground">
-                Gợi ý: Nhập @channel/@group hoặc ID số. Với người dùng, bot chỉ nhắn nếu họ đã start bot.
+                {t('sidebar.hintChatIdOrUsername')} {t('sidebar.hintBotChat')}
               </p>
             </div>
           </div>
@@ -320,17 +320,17 @@ export function ChatArea() {
           <div className="text-center">
             <Paperclip className="h-16 w-16 mx-auto mb-4 text-primary animate-bounce" />
             <p className="text-2xl font-semibold text-primary mb-2">
-              Thả file vào đây để gửi
+              {t('chat.dropFileToSend')}
             </p>
             <p className="text-sm text-muted-foreground">
-              Hỗ trợ tất cả loại file
+              {t('chat.supportedFileTypes')}
             </p>
           </div>
         </div>
       )}
 
       {/* Chat Header */}
-      <div className="z-20 mb-3 flex items-center justify-between rounded-xl border border-border/80 bg-background/65 px-4 py-3 backdrop-blur-xl shadow-[0_6px_24px_hsl(var(--background)/0.55)]">
+      <div className="z-20 mb-3 flex items-center justify-between rounded-xl border border-border/80 bg-background/65 px-4 py-3 backdrop-blur-xl shadow-[0_6px_24px_rgba(0,0,0,0.2)]">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-primary/90 text-primary-foreground rounded-md flex items-center justify-center font-semibold shadow-[0_0_18px_hsl(var(--primary)/0.5)]">
             {activeChat.avatarText}
