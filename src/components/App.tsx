@@ -34,7 +34,7 @@ export function App() {
           <LoadingSpinner />
         </div>
       }>
-        <div className="flex h-screen bg-background text-foreground">
+        <div className="relative flex h-screen overflow-hidden bg-background text-foreground">
           <Sidebar />
           <ChatArea />
           <CallbackNotification />

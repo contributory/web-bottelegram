@@ -71,7 +71,7 @@ export function Sidebar({ className }: SidebarProps) {
         <Button
           variant="ghost"
           size="icon"
-          className="fixed top-4 left-4 z-50"
+          className="fixed top-4 left-4 z-50 hud-glow border border-border/70 bg-card/80 backdrop-blur-md"
           onClick={() => setIsHidden(false)}
         >
           <Menu className="h-4 w-4" />
@@ -80,14 +80,14 @@ export function Sidebar({ className }: SidebarProps) {
 
       <aside
         className={cn(
-          "w-full max-w-[300px] border-r bg-card flex flex-col transition-transform duration-300 ease-in-out",
+          "w-full max-w-[300px] md:max-w-[320px] border-r hud-panel relative flex flex-col transition-transform duration-300 ease-in-out",
           "absolute inset-y-0 left-0 z-40 md:relative",
           isHidden && "-translate-x-full",
           className
         )}
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b">
+        <div className="flex items-center justify-between p-4 border-b border-border/80">
           <div className="flex items-center gap-2">
             <div className="relative">
               <MessageSquare className="h-5 w-5 text-primary" />
@@ -105,7 +105,7 @@ export function Sidebar({ className }: SidebarProps) {
               />
             </div>
             <div className="flex flex-col">
-              <h1 className="font-semibold text-lg">
+              <h1 className="font-semibold text-lg hud-title">
                 {botInfo.name || "Bottlegram"}
               </h1>
               {token && (
@@ -149,7 +149,7 @@ export function Sidebar({ className }: SidebarProps) {
         </div>
 
         {/* Open Chat Section */}
-        <div className="p-3 border-b">
+        <div className="p-3 border-b border-border/80">
           <div className="flex gap-2">
             <Input
               placeholder={t("chat.enterChatId")}
@@ -181,7 +181,7 @@ export function Sidebar({ className }: SidebarProps) {
       {/* Overlay when sidebar is open on small screens */}
       {!isHidden && (
         <div
-          className="fixed inset-0 bg-black/50 z-30 md:hidden"
+          className="fixed inset-0 bg-background/75 backdrop-blur-sm z-30 md:hidden"
           onClick={() => setIsHidden(true)}
         />
       )}
