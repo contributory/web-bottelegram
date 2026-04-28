@@ -225,18 +225,18 @@ export function ChatArea() {
 
   if (!activeChat) {
     return (
-      <main className="flex-1 flex flex-col">
-        <div className="flex-1 flex items-center justify-center p-8">
-          <div className="text-center space-y-4 max-w-md">
-            <div className="w-20 h-20 bg-muted rounded-full flex items-center justify-center mx-auto">
-              <span className="text-3xl">💬</span>
+      <main className="flex min-h-0 flex-1 flex-col p-4 md:p-6">
+        <div className="grid flex-1 gap-4 lg:grid-cols-[1.2fr_0.8fr]">
+          <div className="hud-panel relative rounded-2xl p-8 text-center">
+            <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full border border-primary/40 bg-primary/20 hud-glow">
+              <span className="text-3xl">🛸</span>
             </div>
-            <div className="space-y-2">
+            <div className="mt-4 space-y-2">
               <h3 className="text-lg font-medium">{t('chat.noChatSelected')}</h3>
               <p className="text-muted-foreground">{t('chat.noChatSelectedDesc')}</p>
             </div>
             {botInfo.name && (
-              <div className="mt-6 p-4 bg-muted/50 rounded-lg">
+              <div className="mt-6 p-4 bg-muted/40 border border-border/70 rounded-lg">
                 <p className="flex items-center justify-center gap-2 text-sm">
                   {isConnected ? (
                     <>
@@ -260,7 +260,7 @@ export function ChatArea() {
               </div>
             )}
 
-            <div className="mt-6 space-y-2 p-4 border rounded-lg text-left">
+            <div className="mt-6 space-y-2 p-4 border border-border/80 rounded-lg text-left bg-background/45">
               <p className="text-sm font-medium">Mở chat mới</p>
               <div className="flex flex-col sm:flex-row gap-2">
                 <Input
@@ -290,16 +290,33 @@ export function ChatArea() {
               </p>
             </div>
           </div>
+
+          <div className="space-y-4">
+            <div className="rounded-2xl border border-border/80 bg-background/40 p-5">
+              <p className="hud-title text-xs text-primary">Navigation</p>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Dùng panel bên trái để chuyển hội thoại nhanh, hoặc mở chat mới bằng ID/@username.
+              </p>
+            </div>
+            <div className="rounded-2xl border border-border/80 bg-background/40 p-5">
+              <p className="hud-title text-xs text-primary">Transmission tips</p>
+              <ul className="mt-2 space-y-1 text-sm text-muted-foreground">
+                <li>• Enter để gửi nhanh, Shift+Enter xuống dòng.</li>
+                <li>• Kéo thả file vào khung chat để gửi media.</li>
+                <li>• Có thể sửa/tạo inline keyboard cho tin nhắn.</li>
+              </ul>
+            </div>
+          </div>
         </div>
       </main>
     )
   }
 
   return (
-    <main className="flex-1 flex flex-col relative">
+    <main className="relative flex min-h-0 flex-1 flex-col p-3 md:p-4">
       {/* Global Drag Overlay */}
       {isDraggingFile && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-primary/10 backdrop-blur-sm pointer-events-none">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/45 backdrop-blur-sm pointer-events-none">
           <div className="text-center">
             <Paperclip className="h-16 w-16 mx-auto mb-4 text-primary animate-bounce" />
             <p className="text-2xl font-semibold text-primary mb-2">
@@ -313,9 +330,9 @@ export function ChatArea() {
       )}
 
       {/* Chat Header */}
-      <div className="sticky top-0 z-20 border-b px-4 py-3 md:p-4 flex items-center justify-between bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm">
+      <div className="z-20 mb-3 flex items-center justify-between rounded-xl border border-border/80 bg-background/65 px-4 py-3 backdrop-blur-xl shadow-[0_6px_24px_hsl(var(--background)/0.55)]">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-semibold">
+          <div className="w-10 h-10 bg-primary/90 text-primary-foreground rounded-md flex items-center justify-center font-semibold shadow-[0_0_18px_hsl(var(--primary)/0.5)]">
             {activeChat.avatarText}
           </div>
           <div>
@@ -346,20 +363,22 @@ export function ChatArea() {
       </div>
 
       {/* Messages Container */}
-      <div
-        ref={messagesContainerRef}
-        className="flex-1 overflow-y-auto px-3 py-4 md:px-4 md:py-6"
-        onScroll={handleScroll}
-      >
-        {activeChatId && <MessageList chatId={activeChatId} />}
-      </div>
+      <section className="relative min-h-0 flex-1 rounded-2xl border border-border/70 bg-background/35">
+        <div
+          ref={messagesContainerRef}
+          className="h-full overflow-y-auto px-3 py-4 md:px-4 md:py-6"
+          onScroll={handleScroll}
+        >
+          {activeChatId && <MessageList chatId={activeChatId} />}
+        </div>
+      </section>
 
       {/* New Message Overlay + Button */}
       {showNewMessageButton && (
         <>
           <div className="pointer-events-none absolute bottom-20 left-0 right-0 h-16 bg-gradient-to-t from-background/90 via-background/60 to-transparent" />
           <Button
-            className="fixed bottom-24 right-4 md:right-6 rounded-full shadow-lg z-30 animate-slideIn"
+            className="fixed bottom-24 right-4 md:right-6 rounded-full shadow-lg z-30 animate-slideIn hud-glow"
             onClick={() => scrollToBottom(true)}
             size="sm"
             aria-label={t('chat.newMessage')}
@@ -371,7 +390,9 @@ export function ChatArea() {
       )}
 
       {/* Input Area */}
-      <InputArea isDraggingGlobal={isDraggingFile} />
+      <div className="mt-3 overflow-hidden rounded-xl border border-border/80 bg-background/45">
+        <InputArea isDraggingGlobal={isDraggingFile} />
+      </div>
     </main>
   )
 }

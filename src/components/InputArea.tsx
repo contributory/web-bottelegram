@@ -450,7 +450,7 @@ export function InputArea({ className, isDraggingGlobal = false }: InputAreaProp
         <div
             ref={dropZoneRef}
             className={cn(
-                "border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 relative",
+                "bg-background/72 backdrop-blur-xl supports-[backdrop-filter]:bg-background/55 relative",
                 className,
             )}
             onDragOver={handleDragOver}
@@ -458,7 +458,7 @@ export function InputArea({ className, isDraggingGlobal = false }: InputAreaProp
         >
             {/* Global Drag overlay - covers entire chat area */}
             {isDraggingGlobal && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-primary/10 backdrop-blur-sm pointer-events-none">
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/40 backdrop-blur-sm pointer-events-none">
                     <div className="text-center pointer-events-none">
                         <Paperclip className="h-12 w-12 mx-auto mb-3 text-primary animate-bounce" />
                         <p className="text-lg font-medium text-primary">
@@ -473,7 +473,7 @@ export function InputArea({ className, isDraggingGlobal = false }: InputAreaProp
 
             {/* Reply Context */}
             {replyTo && replyMessage && (
-                <div className="flex items-center gap-2 px-4 py-2 border-b bg-muted/50">
+                <div className="flex items-center gap-2 px-4 py-2 border-b border-border/70 bg-muted/35">
                     <div className="flex-1 min-w-0">
                         <p className="text-xs text-muted-foreground">
                             {t("chat.replyingTo")}
@@ -493,7 +493,7 @@ export function InputArea({ className, isDraggingGlobal = false }: InputAreaProp
 
             {/* Editing Context */}
             {editingMessageId && editingMsg && (
-                <div className="flex items-center gap-2 px-4 py-2 border-b bg-muted/50">
+                <div className="flex items-center gap-2 px-4 py-2 border-b border-border/70 bg-muted/35">
                     <div className="flex-1 min-w-0">
                         <p className="text-xs text-muted-foreground">
                             {t("chat.editing")}

@@ -71,7 +71,7 @@ export function Sidebar({ className }: SidebarProps) {
         <Button
           variant="ghost"
           size="icon"
-          className="fixed top-4 left-4 z-50"
+          className="fixed top-4 left-4 z-50 hud-glow border border-border/70 bg-card/80 backdrop-blur-md"
           onClick={() => setIsHidden(false)}
         >
           <Menu className="h-4 w-4" />
@@ -80,15 +80,15 @@ export function Sidebar({ className }: SidebarProps) {
 
       <aside
         className={cn(
-          "w-full max-w-[300px] border-r bg-card flex flex-col transition-transform duration-300 ease-in-out",
-          "absolute inset-y-0 left-0 z-40 md:relative",
+          "w-full hud-panel relative flex flex-col transition-transform duration-300 ease-in-out",
+          "absolute inset-y-0 left-0 z-40 md:relative md:inset-auto",
           isHidden && "-translate-x-full",
           className
         )}
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b">
-          <div className="flex items-center gap-2">
+        <div className="border-b border-border/80 p-4">
+          <div className="flex items-center justify-between">
             <div className="relative">
               <MessageSquare className="h-5 w-5 text-primary" />
               {/* Connection indicator */}
@@ -104,38 +104,9 @@ export function Sidebar({ className }: SidebarProps) {
                 title={lastError || pollingStatus}
               />
             </div>
-            <div className="flex flex-col">
-              <h1 className="font-semibold text-lg">
-                {botInfo.name || "Bottlegram"}
-              </h1>
-              {token && (
-                <p className="text-xs text-muted-foreground">
-                  {isConnected
-                    ? botInfo.name
-                      ? `${t("connection.connected")}: ${botInfo.name}`
-                      : t("connection.connected")
-                    : pollingStatus === "error"
-                    ? lastError || "Error"
-                    : t("connection.connecting")}
-                </p>
-              )}
-              {!token && (
-                <p className="text-xs text-red-500">{t("chat.noToken")}</p>
-              )}
-            </div>
-          </div>
-
-          <div className="flex items-center gap-1">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={toggleTheme}
-              title={t("chat.toggleTheme")}
-            >
-              {getThemeIcon()}
-            </Button>
-
-            <SettingsDialog />
+            <h1 className="font-semibold text-lg hud-title">
+              {botInfo.name || "Bottlegram"}
+            </h1>
 
             <Button
               variant="ghost"
@@ -146,10 +117,43 @@ export function Sidebar({ className }: SidebarProps) {
               <X className="h-4 w-4" />
             </Button>
           </div>
+
+          <div className="mt-3 rounded-lg border border-border/70 bg-background/45 p-3">
+            {token && (
+              <p className="text-xs text-muted-foreground">
+                {isConnected
+                  ? botInfo.name
+                    ? `${t("connection.connected")}: ${botInfo.name}`
+                    : t("connection.connected")
+                  : pollingStatus === "error"
+                  ? lastError || "Error"
+                  : t("connection.connecting")}
+              </p>
+            )}
+            {!token && (
+              <p className="text-xs text-red-500">{t("chat.noToken")}</p>
+            )}
+          </div>
+
+          <div className="mt-3 flex items-center gap-1">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggleTheme}
+              title={t("chat.toggleTheme")}
+            >
+              {getThemeIcon()}
+            </Button>
+
+            <SettingsDialog />
+          </div>
         </div>
 
         {/* Open Chat Section */}
-        <div className="p-3 border-b">
+        <div className="border-b border-border/80 p-3">
+          <p className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-primary/85">
+            Jump to channel
+          </p>
           <div className="flex gap-2">
             <Input
               placeholder={t("chat.enterChatId")}
@@ -173,7 +177,7 @@ export function Sidebar({ className }: SidebarProps) {
         </div>
 
         {/* Chat List */}
-        <div className="flex-1 overflow-hidden">
+        <div className="flex-1 overflow-hidden p-2">
           <ChatList />
         </div>
       </aside>
@@ -181,7 +185,7 @@ export function Sidebar({ className }: SidebarProps) {
       {/* Overlay when sidebar is open on small screens */}
       {!isHidden && (
         <div
-          className="fixed inset-0 bg-black/50 z-30 md:hidden"
+          className="fixed inset-0 bg-background/75 backdrop-blur-sm z-30 md:hidden"
           onClick={() => setIsHidden(true)}
         />
       )}
