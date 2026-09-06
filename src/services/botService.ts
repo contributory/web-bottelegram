@@ -228,10 +228,10 @@ export class BotService {
             if (typeof photo === "string") {
                 input = photo;
             } else {
-                // Convert File to Uint8Array for InputFile compatibility
-                const arrayBuffer = await photo.arrayBuffer();
-                const uint8Array = new Uint8Array(arrayBuffer);
-                input = new InputFile(uint8Array, photo.name || "photo.jpg");
+                // Use File object directly for browser compatibility
+                
+                
+                input = new InputFile(photo, photo.name || "photo.jpg");
             }
             const message = await this.bot.api.sendPhoto(chatId, input, {
                 caption: options?.caption,
@@ -261,9 +261,9 @@ export class BotService {
             if (typeof video === "string") {
                 input = video;
             } else {
-                const arrayBuffer = await video.arrayBuffer();
-                const uint8Array = new Uint8Array(arrayBuffer);
-                input = new InputFile(uint8Array, video.name || "video.mp4");
+                
+                
+                input = new InputFile(video, video.name || "video.mp4");
             }
             const message = await this.bot.api.sendVideo(chatId, input, {
                 caption: options?.caption,
@@ -293,9 +293,9 @@ export class BotService {
             if (typeof audio === "string") {
                 input = audio;
             } else {
-                const arrayBuffer = await audio.arrayBuffer();
-                const uint8Array = new Uint8Array(arrayBuffer);
-                input = new InputFile(uint8Array, audio.name || "audio.mp3");
+                
+                
+                input = new InputFile(audio, audio.name || "audio.mp3");
             }
             const message = await this.bot.api.sendAudio(chatId, input, {
                 caption: options?.caption,
@@ -325,9 +325,9 @@ export class BotService {
             if (typeof document === "string") {
                 input = document;
             } else {
-                const arrayBuffer = await document.arrayBuffer();
-                const uint8Array = new Uint8Array(arrayBuffer);
-                input = new InputFile(uint8Array, document.name || "document");
+                
+                
+                input = new InputFile(document, document.name || "document");
             }
             const message = await this.bot.api.sendDocument(chatId, input, {
                 caption: options?.caption,

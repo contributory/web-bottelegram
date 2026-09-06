@@ -273,22 +273,46 @@ export function InputArea({ className, isDraggingGlobal = false }: InputAreaProp
         // If editing
         if (editingMessageId) {
             const msgId = parseInt(editingMessageId);
-            const response = await botService.editMessageText(
+            
+            // Always send reply_markup - use empty array to remove keyboard
+            const replyMarkup = inlineKeyboard.length > 0 
+                ? { inline_keyboard: inlineKeyboard } 
+                : { inline_keyboard: [] };
+
+            let response = await botService.editMessageText(
                 activeChatId,
                 msgId,
                 textToSend,
                 {
                     parse_mode: preferences.parseMode !== 'None' ? preferences.parseMode : undefined,
-                    reply_markup: inlineKeyboard.length > 0 ? { inline_keyboard: inlineKeyboard } : undefined,
+                    reply_markup: replyMarkup,
                 }
             );
+
+            // If failed with parse mode, retry without it
+            if (!response.ok && preferences.parseMode !== 'None') {
+                console.log('[InputArea] Edit failed with parse mode, retrying without parse mode...');
+                response = await botService.editMessageText(
+                    activeChatId,
+                    msgId,
+                    textToSend,
+                    {
+                        reply_markup: replyMarkup,
+                    }
+                );
+            }
 
             if (response.ok) {
                 updateMessage(activeChatId, msgId, { 
                     text: textToSend,
                     reply_markup: inlineKeyboard.length > 0 ? inlineKeyboard : undefined,
                 });
+                setReplyTo(null);
+            } else {
+                console.error('[InputArea] Failed to edit message:', response);
+                alert(`Không thể sửa tin nhắn: ${response.description || 'Unknown error'}`);
             }
+            
             setEditingMessageId(null);
             setMessage("");
             setInlineKeyboard([]);
